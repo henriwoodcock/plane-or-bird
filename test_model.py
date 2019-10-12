@@ -83,8 +83,7 @@ model.summary()
 model.fit(x_train, y_train, epochs=10, batch_size=64, shuffle=True,validation_split=0.2)
 model.evaluate(x_test,y_test, verbose = 0, batch_size =64)
 
-model.save("deepCNN.h5")
-
+model.save("/plane_or_bird/pretrained/deepCNN.h5")
 
 x_test, y_test, x_test_norm = shuffle(x_test, y_test, x_test_norm)
 
