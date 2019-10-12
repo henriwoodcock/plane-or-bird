@@ -56,7 +56,7 @@ for file in file_list:
 bird_test_set = np.array(bird_test_set)
 bird_test_y = np.array(bird_test_y)
 
-x_train = plane_training_set + bird_train_set
-y_train = plane_training_y + bird_train_y
-x_test = plane_test_set + bird_test_set
-y_test = plane_test_y + bird_test_y
+x_train = np.concatenate([plane_training_set, bird_train_set])
+y_train = np.concatenate([plane_training_y, bird_train_y])
+x_test = np.concatenate([plane_test_set, bird_test_set])
+y_test = np.concatenate([plane_test_y, bird_test_y])
