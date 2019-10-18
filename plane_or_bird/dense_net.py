@@ -5,11 +5,11 @@ from tensorflow.keras.optimizers import RMSprop
 import numpy as np
 from sklearn.utils import shuffle
 from plane_or_bird.data_clean import x_train, y_train, x_test, y_test
-from plane_or_bird.data_generate import data_func
-from plane_or_bird.data_generate import data_functions
+#from plane_or_bird.data_generate import data_func
+from plane_or_bird import data_functions
 
 
-data_aug_bool = input("would you like data_augmentation?")
+#data_aug_bool = input("would you like data_augmentation?")
 
 #save a copy of original x_test before standardising:
 x_test_norm = x_test
@@ -84,6 +84,7 @@ model.compile(loss='binary_crossentropy', optimizer=RMSprop(), metrics=['accurac
 model.summary()
 
 #fit model to data:
+'''
 if data_aug_bool:
     model.fit_generator(data_func(x_train,y_train, 64), epochs=10, shuffle=True)
     model.evaluate(x_test,y_test, verbose = 0, batch_size =64)
@@ -92,10 +93,13 @@ if data_aug_bool:
         weights_name = input("Name the weights")
         model.save("/plane_or_bird/pretrained/" + str(weights_name) + "/.h5")
 else:
-    model.fit(x_train, y_train, epochs=10, batch_size=64, shuffle=True,validation_split=0.2)
-    #evalute fit model against testing data
-    model.evaluate(x_test,y_test, verbose = 0, batch_size =64)
-    save = input("Would you like to save the weights? (y/n)")
-    if save == "y":
-        weights_name = input("Name the weights")
-        model.save("/plane_or_bird/pretrained/" + str(weights_name) + "/.h5")
+'''
+model.fit(x_train, y_train, epochs=150, batch_size=128, shuffle=True,validation_split=0.2)
+#evalute fit model against testing data
+results = model.evaluate(x_test,y_test, verbose = 0, batch_size =64)
+save = input("Would you like to save the weights? (y/n)")
+if save == "y":
+    weights_name = input("Name the weights")
+    model.save("/plane_or_bird/pretrained/" + str(weights_name) + "/.h5")
+
+print("final loss =", results[0], "final accuracy =", results[1])
